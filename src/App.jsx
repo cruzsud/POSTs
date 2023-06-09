@@ -11,10 +11,15 @@ const posts = [
     author: {
          avatarUrl: 'https://github.com/cruzsud.png',
          name: 'Anderson Cruz',
-         role: 'Desenvolvedor FullStack',
+         role: 'FullStack Developer',
     },
-    content:'<p> Fala galeraa</p> <p> Acabei de subir mais um projeto no meu portifa. É um projeto que fiz Ignite.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non commodi possimus, quaerat dignissimos asperiores id odio quis cumque ratione ea ipsa voluptate laboriosam iste neque similique molestiae aperiam, nihil necessitatibus!</p><p><a href="https://github.com/cruzsud/cartaoCredito">https://github.com/cruzsud</a></p>',
-    publishedAt: new Date('2022-05-03 11:22:00'),
+    content: [
+      {type: 'paragraph', content :'Fala galeraa!'},
+      {type: 'paragraph', content :'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz Ignite.'},
+      {type: 'paragraph', content :'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non commodi possimus, quaerat dignissimos asperiores id odio quis cumque ratione ea ipsa voluptate laboriosam iste neque similique molestiae aperiam, nihil necessitatibus!'},
+      {type: 'link', content :'https://github.com/cruzsud/cartaoCredito'}
+   ], 
+    publishedAt: new Date('2023-02-03 11:22:00'),
   },
   {
     id: 2,
@@ -23,8 +28,13 @@ const posts = [
          name: 'Diego Cruz',
          role: 'Ceo @Rocketseat',
     },
-    content:'<p> Fala galeraa</p> <p> Acabei de subir mais um projeto no meu portifa. É um projeto que fiz Ignite.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non commodi possimus, quaerat dignissimos asperiores id odio quis cumque ratione ea ipsa voluptate laboriosam iste neque similique molestiae aperiam, nihil necessitatibus!</p><p><a href="https://github.com/cruzsud/cartaoCredito">https://github.com/cruzsud</a></p>',
-    publishedAt: new Date('2022-05-03 13:22:00'),
+    content: [
+      {type: 'paragraph', content :'Boa Tarde, Pessoal'},
+      {type: 'paragraph', content :'Projeto novo aindo do forno. É um projeto que fiz Ignite.'},
+      {type: 'paragraph', content :'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non commodi possimus, quaerat dignissimos asperiores id odio quis cumque ratione ea ipsa voluptate laboriosam iste neque similique molestiae aperiam, nihil necessitatibus!'},
+      {type: 'link', content :'https://github.com/cruzsud/cartaoCredito'}
+   ], 
+    publishedAt: new Date('2023-04-03 13:22:00'),
   }
 ]
 

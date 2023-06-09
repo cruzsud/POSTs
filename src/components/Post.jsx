@@ -1,9 +1,37 @@
 import styles from './Post.module.css';
 import { Comments } from './Comments';
 import { Avatar } from './Avatar';
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from 'date-fns/locale/pt-BR';
+import { useState } from 'react';
 
 
 export  function Post(props) {
+
+    const publishedAtForm = format(props.publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale: ptBR});
+    const publishedDateRelativeNow = formatDistanceToNow(props.publishedAt, {locale: ptBR, addSuffix: true});
+
+    const [comments, setComments] = useState([
+        'Post muito bacana, hein?!',
+      
+    ]);
+
+    const [newCommentText, setNewCommentText] = useState('');
+
+
+    function handerCreatNewComment() {
+        event.preventDefault();
+        //const newCommentText = event.target.comment.value;  
+        setComments([...comments, newCommentText]);
+      
+    }
+
+    function handleNewCommentChange() {
+        setNewCommentText(event.target.value);
+        setNewCommentText('');
+        
+    }
+
     return (
         <article className={styles.post}>
             <header>
@@ -14,30 +42,38 @@ export  function Post(props) {
                     <span>{props.author.role}</span>
                    </div>
                 </div>
-                <time title="12 de Maio às 08h10" dateTime='2023-05-12 08:10:01'>Publicado há 1h</time>
+                <time title={publishedAtForm} dateTime={props.publishedAt.toISOString()}>{publishedDateRelativeNow}</time>
             </header>
-            <div className={styles.contents}>
-                <p>
-                    Fala galeraa
-                </p>
-                <p> Acabei de subir mais um projeto no meu portifa. É um projeto que fiz Ignite.</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non commodi possimus, quaerat dignissimos asperiores id odio quis cumque ratione ea ipsa voluptate laboriosam iste neque similique molestiae aperiam, nihil necessitatibus!
-                </p>
-                <p><a href="https://github.com/cruzsud/cartaoCredito">https://github.com/cruzsud</a></p>
 
+            <div className={styles.contents}>
+                {props.content.map(line =>{
+                    if(line.type === 'paragraph'){
+                        return <p>{line.content}</p>;
+                    }else if (line.type === 'link'){
+                         return <p><a href="#">{line.content}</a></p>;
+                    }
+                })}
             </div>
-            <form className={styles.commentForm}>
+
+            <form onSubmit={handerCreatNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
-                <textarea className={styles.commentArea} placeholder='Deixe seu comentário'/>
+                <textarea 
+                    onChange={handleNewCommentChange} 
+                    name="comment" 
+                    className={styles.commentArea} 
+                    placeholder='Deixe seu comentário'/>
                 <footer>
                     <button type="submit">Publicar</button> 
                 </footer>
             </form>
+
             <div className={styles.commentList}>
-                <Comments/>
-                <Comments/>
-                <Comments/>
+                {comments.map(comment =>{
+                    return (
+                        <Comments content={comment}/>
+                    )
+                  }
+                )}
             </div>
         </article>
       )
