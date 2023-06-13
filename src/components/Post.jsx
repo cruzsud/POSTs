@@ -23,13 +23,19 @@ export  function Post(props) {
         event.preventDefault();
         //const newCommentText = event.target.comment.value;  
         setComments([...comments, newCommentText]);
-      
+        setNewCommentText('');
     }
 
     function handleNewCommentChange() {
         setNewCommentText(event.target.value);
-        setNewCommentText('');
         
+    }
+
+    function deleteComment(commentToDelete) {
+        const commensWithoutDeleteOne = comments.filter(comment =>{
+            return comment !== commentToDelete;
+        })
+        setComments(commensWithoutDeleteOne);
     }
 
     return (
@@ -46,11 +52,12 @@ export  function Post(props) {
             </header>
 
             <div className={styles.contents}>
+    
                 {props.content.map(line =>{
                     if(line.type === 'paragraph'){
-                        return <p>{line.content}</p>;
+                        return <p key={line.content}>{line.content}</p>;
                     }else if (line.type === 'link'){
-                         return <p><a href="#">{line.content}</a></p>;
+                         return <p key={line.content}><a href="#">{line.content}</a></p>;
                     }
                 })}
             </div>
@@ -70,7 +77,11 @@ export  function Post(props) {
             <div className={styles.commentList}>
                 {comments.map(comment =>{
                     return (
-                        <Comments content={comment}/>
+                        <Comments 
+                            key={comment} 
+                            content={comment}
+                            onDeleteComment={deleteComment}
+                         />
                     )
                   }
                 )}
